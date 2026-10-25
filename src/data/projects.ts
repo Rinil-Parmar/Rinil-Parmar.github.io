@@ -33,8 +33,14 @@ export type Project = {
   order: number;
   // Short bullets for the card / listing.
   highlights: string[];
-  // Optional screenshot shown on the case-study page.
-  image?: { src: string; alt: string; width: number; height: number };
+  // Optional screenshots shown on the case-study page.
+  images?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    caption?: string;
+  }[];
   caseStudy?: CaseStudy;
 };
 
@@ -58,12 +64,16 @@ export const projects: Project[] = [
       "Dependency-aware parallel execution across Claude Code, OpenCode, and Copilot",
       "Fail-isolated runs: blocked tasks retry without restarting the whole job",
     ],
-    image: {
-      src: "/projects/aros.png",
-      alt: "Aros CLI terminal UI: the multi-agent orchestrator showing enabled agents (claude, copilot, opencode), the active session, and commands.",
-      width: 1888,
-      height: 1039,
-    },
+    images: [
+      {
+        src: "/projects/aros.png",
+        alt: "Aros CLI terminal UI: the multi-agent orchestrator showing enabled agents (claude, copilot, opencode), the active session, and commands.",
+        width: 1888,
+        height: 1039,
+        caption:
+          "The Aros TUI: enabled agents and judge on the right, session and commands in the main pane.",
+      },
+    ],
     caseStudy: {
       problem:
         "Running several AI coding agents by hand is chaotic: they duplicate work, overwrite each other, and give you no structured way to approve what they do. Aros turns ad-hoc agent use into an explicit, reviewable workflow across Claude Code, OpenCode, and Copilot.",
@@ -210,6 +220,16 @@ export const projects: Project[] = [
       "FTS5 keyword fallback and SHA-256 deduplication",
       "Pluggable embeddings via OpenAI or local Ollama, with citation lineage",
     ],
+    images: [
+      {
+        src: "/projects/secondmem.png",
+        alt: "Secondmem CLI help output listing commands: ask, ingest, graph, rebalance, stats, tree, validate.",
+        width: 1911,
+        height: 1003,
+        caption:
+          "The secondmem CLI: ingest, ask, and manage the local LORE-GRAPH knowledge base.",
+      },
+    ],
     caseStudy: {
       problem:
         "Cloud note tools lock your knowledge into someone else's service and model. Secondmem keeps a searchable, AI-assisted knowledge base entirely on your machine, with retrieval you can trust and cite.",
@@ -355,6 +375,32 @@ export const projects: Project[] = [
       "AES-GCM encryption at rest with SHA-256 hashed 256-bit tokens",
       "Atomic one-time download with concurrent replay prevention",
       "15 Pytest tests, GitHub Actions CI, live on Render",
+    ],
+    images: [
+      {
+        src: "/projects/secureshare-upload.png",
+        alt: "SecureShare upload screen: an AES-GCM encrypted confidential file with a configurable expiry and optional password.",
+        width: 1881,
+        height: 963,
+        caption:
+          "Creating a transfer: files are AES-GCM encrypted before storage, with a 1-minute-to-7-day expiry and optional password.",
+      },
+      {
+        src: "/projects/secureshare-vault.png",
+        alt: "SecureShare vault: a shared file with its latest link, expiry countdown, and a menu to create a new link or revoke the current one.",
+        width: 1902,
+        height: 949,
+        caption:
+          "The owner's vault: manage a file's active link, create a fresh one, or revoke access.",
+      },
+      {
+        src: "/projects/secureshare-audit.png",
+        alt: "SecureShare audit trail showing a completed download followed by a blocked attempt labelled 'link already used'.",
+        width: 1885,
+        height: 946,
+        caption:
+          "The audit trail proving one-time semantics: one successful download, then the next attempt blocked as 'link already used'.",
+      },
     ],
     caseStudy: {
       problem:

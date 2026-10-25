@@ -149,20 +149,29 @@ export default async function CaseStudyPage({
           </Reveal>
         </header>
 
-        {project.image && (
-          <Reveal>
-            <figure className="mt-10 overflow-hidden rounded-xl border border-border bg-surface-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={project.image.src}
-                alt={project.image.alt}
-                width={project.image.width}
-                height={project.image.height}
-                loading="lazy"
-                className="h-auto w-full"
-              />
-            </figure>
-          </Reveal>
+        {project.images && project.images.length > 0 && (
+          <div className="mt-10 space-y-6">
+            {project.images.map((img, i) => (
+              <Reveal key={img.src} delay={i * 0.05}>
+                <figure className="overflow-hidden rounded-xl border border-border bg-surface-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    width={img.width}
+                    height={img.height}
+                    loading="lazy"
+                    className="h-auto w-full"
+                  />
+                  {img.caption && (
+                    <figcaption className="border-t border-border px-4 py-3 text-xs leading-relaxed text-ink-muted">
+                      {img.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              </Reveal>
+            ))}
+          </div>
         )}
 
         {cs && (
