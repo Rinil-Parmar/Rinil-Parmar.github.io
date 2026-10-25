@@ -12,7 +12,7 @@
   --border-strong: #d6d2c6;
   --ink: #15171a;
   --ink-secondary: #53585e;
-  --ink-muted: #8b9097;
+  --ink-muted: #686e75;
   --accent: #0d8c7d;
   --accent-soft: #e2f3ef;
   --accent-contrast: #ffffff;
@@ -27,7 +27,7 @@
   --border-strong: #2e333a;
   --ink: #f4f4f3;
   --ink-secondary: #9aa0a6;
-  --ink-muted: #6b7076;
+  --ink-muted: #878d94;
   --accent: #4adecd;
   --accent-soft: #10302d;
   --accent-contrast: #0e0f11;
@@ -127,5 +127,48 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/* Entrance animations (CSS-driven so content paints without waiting for JS). */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Above-the-fold: plays automatically on load, never gated by JS. */
+.animate-rise {
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Scroll-triggered reveal. Hidden only when JS is present (.has-js on <html>),
+   so no-JS users always see content. A tiny observer adds .is-visible. */
+.reveal {
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+:where(.has-js) .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise {
+    animation: none;
+  }
+  :where(.has-js) .reveal {
+    opacity: 1;
+    transform: none;
   }
 }

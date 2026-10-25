@@ -43,7 +43,7 @@ function Block({
   return (
     <section id={id} className="scroll-mt-24 border-t border-border py-10">
       <Reveal>
-        <span className="mono-label text-accent">{label}</span>
+        <h2 className="mono-label text-accent">{label}</h2>
         <div className="mt-4">{children}</div>
       </Reveal>
     </section>

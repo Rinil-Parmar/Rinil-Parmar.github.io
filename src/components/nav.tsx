@@ -34,7 +34,10 @@ export function Nav() {
           : "border-b border-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
+      <nav
+        aria-label="Primary"
+        className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6"
+      >
         <Link
           href="/#top"
           className="font-mono text-base font-medium text-ink"
@@ -64,8 +67,10 @@ export function Nav() {
             aria-label="Open command menu"
             className="flex items-center gap-2 rounded-md border border-border px-2.5 py-2 text-sm text-ink-muted transition-colors hover:border-border-strong hover:text-ink-secondary"
           >
-            <Search className="h-3.5 w-3.5" />
-            <kbd className="hidden font-mono text-xs sm:inline">⌘K</kbd>
+            <Search className="h-3.5 w-3.5" aria-hidden="true" />
+            <kbd className="hidden font-mono text-xs sm:inline" aria-hidden="true">
+              ⌘K
+            </kbd>
           </button>
 
           <ThemeToggle />
