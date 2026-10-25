@@ -149,6 +149,22 @@ export default async function CaseStudyPage({
           </Reveal>
         </header>
 
+        {project.image && (
+          <Reveal>
+            <figure className="mt-10 overflow-hidden rounded-xl border border-border bg-surface-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={project.image.src}
+                alt={project.image.alt}
+                width={project.image.width}
+                height={project.image.height}
+                loading="lazy"
+                className="h-auto w-full"
+              />
+            </figure>
+          </Reveal>
+        )}
+
         {cs && (
           <div className="mt-8">
             <CaseStudyNav />

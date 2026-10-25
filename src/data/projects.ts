@@ -33,6 +33,8 @@ export type Project = {
   order: number;
   // Short bullets for the card / listing.
   highlights: string[];
+  // Optional screenshot shown on the case-study page.
+  image?: { src: string; alt: string; width: number; height: number };
   caseStudy?: CaseStudy;
 };
 
@@ -56,6 +58,12 @@ export const projects: Project[] = [
       "Dependency-aware parallel execution across Claude Code, OpenCode, and Copilot",
       "Fail-isolated runs: blocked tasks retry without restarting the whole job",
     ],
+    image: {
+      src: "/projects/aros.png",
+      alt: "Aros CLI terminal UI: the multi-agent orchestrator showing enabled agents (claude, copilot, opencode), the active session, and commands.",
+      width: 1888,
+      height: 1039,
+    },
     caseStudy: {
       problem:
         "Running several AI coding agents by hand is chaotic: they duplicate work, overwrite each other, and give you no structured way to approve what they do. Aros turns ad-hoc agent use into an explicit, reviewable workflow across Claude Code, OpenCode, and Copilot.",
