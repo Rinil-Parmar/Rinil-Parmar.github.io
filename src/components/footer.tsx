@@ -21,7 +21,7 @@ export function Footer() {
             Let&apos;s build something that works beyond the demo.
           </h2>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-ink-secondary">
-            Open to software engineering roles across Canada — backend, cloud,
+            Open to software engineering roles across Canada: backend, cloud,
             full-stack, and applied AI. The fastest way to reach me is email.
           </p>
 

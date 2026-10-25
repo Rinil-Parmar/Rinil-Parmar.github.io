@@ -5,7 +5,7 @@ export const profile = {
   location: "Windsor, ON · Canada",
   tagline: "Building software that works beyond the demo.",
   intro:
-    "I design and build reliable backend systems, cloud infrastructure, and AI-powered tools — from architecture through deployment.",
+    "I design and build reliable backend systems, cloud infrastructure, and AI-powered tools, from architecture through deployment.",
   about:
     "I'm a Master of Applied Computing student at the University of Windsor with production experience across backend microservices, full-stack applications, and applied AI. I care about systems that stay correct under load: idempotent APIs, event-driven pipelines, double-entry ledgers, and agent workflows with real audit trails. Most of what I build ends up on GitHub, containerized, and wired to CI.",
   email: "parmar7f@uwindsor.ca",

@@ -11,7 +11,7 @@ export function FeaturedWork() {
       <SectionHeading
         label="Selected engineering work"
         title="Systems built to stay correct under load."
-        description="Backend services, developer tooling, and applied AI — each with a case study on the architecture and the trade-offs behind it."
+        description="Backend services, developer tooling, and applied AI. Each one has a case study on the architecture and the trade-offs behind it."
       />
 
       <div className="grid gap-4 sm:grid-cols-2">

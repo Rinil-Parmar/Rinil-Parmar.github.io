@@ -60,7 +60,7 @@ export const projects: Project[] = [
       problem:
         "Running several AI coding agents by hand is chaotic: you lose track of what each one decided, work gets duplicated, and there is no record of why a change was made. Aros gives multi-agent work a structure and a paper trail.",
       constraints: [
-        "Must stay a fast, scriptable CLI — not a server or a web app",
+        "Must stay a fast, scriptable CLI, not a server or a web app",
         "Agents run external tools, so every action needs a human checkpoint and an audit entry",
         "Tasks have dependencies, so execution order has to be derived, not hard-coded",
       ],
@@ -83,7 +83,7 @@ export const projects: Project[] = [
         },
         {
           title: "Audit log as a first-class artifact",
-          body: "Every decision, tool call, latency, and status is recorded so a run can be reviewed after the fact — essential for trusting agent output.",
+          body: "Every decision, tool call, latency, and status is recorded so a run can be reviewed after the fact, which is essential for trusting agent output.",
         },
       ],
       stackWhy: [
@@ -133,7 +133,7 @@ export const projects: Project[] = [
       problem:
         "Financial systems cannot tolerate lost, duplicated, or silently mutated transactions. FinLedger is a book of record that guarantees every balance change is auditable, idempotent, and reproducible from an immutable history.",
       constraints: [
-        "Entries must be append-only — no in-place updates or deletes",
+        "Entries must be append-only, with no in-place updates or deletes",
         "The same request must never post twice, even on retries",
         "Reads must not contend with the write path",
       ],
@@ -152,7 +152,7 @@ export const projects: Project[] = [
         },
         {
           title: "Transactional outbox over direct publish",
-          body: "Writing the event to an outbox inside the DB transaction avoids the dual-write problem — the event and the ledger entry commit or fail together.",
+          body: "Writing the event to an outbox inside the DB transaction avoids the dual-write problem, because the event and the ledger entry commit or fail together.",
         },
         {
           title: "Append-only storage",
@@ -206,7 +206,7 @@ export const projects: Project[] = [
       problem:
         "Cloud note tools lock your knowledge into someone else's service and model. Secondmem keeps a searchable, AI-assisted knowledge base entirely on your machine, with retrieval you can trust and cite.",
       constraints: [
-        "Must be local-first — no required cloud dependency",
+        "Must be local-first, with no required cloud dependency",
         "Retrieval must degrade gracefully when embeddings are unavailable",
         "Answers must be traceable back to their source notes",
       ],
@@ -278,7 +278,7 @@ export const projects: Project[] = [
       problem:
         "The University of Windsor Alumni Department needed a way to discover and track alumni mentions across the web without re-running fragile one-off scripts. Remembering Lancers turns that into a resumable, searchable, privacy-aware tool.",
       constraints: [
-        "Scraping must be resumable — long runs cannot start over on failure",
+        "Scraping must be resumable, since long runs cannot start over on failure",
         "Must respect privacy and data-governance expectations of a university stakeholder",
         "Needs to be operable by non-engineers through a dashboard",
       ],
@@ -297,7 +297,7 @@ export const projects: Project[] = [
         },
         {
           title: "Dashboard for non-engineers",
-          body: "The Alumni team operates the tool through search and export, not a terminal — so the UI is the real deliverable.",
+          body: "The Alumni team operates the tool through search and export, not a terminal, so the UI is the real deliverable.",
         },
         {
           title: "Privacy by design",
@@ -333,7 +333,7 @@ export const projects: Project[] = [
     name: "SecureShare",
     tagline: "Secure one-time file sharing",
     description:
-      "A secure file-sharing service with AES-GCM encryption at rest, 256-bit single-use access tokens, atomic one-time downloads, and replay prevention — live on Render.",
+      "A secure file-sharing service with AES-GCM encryption at rest, 256-bit single-use access tokens, atomic one-time downloads, and replay prevention, live on Render.",
     stack: ["Python", "Flask", "PostgreSQL", "AES-GCM", "Pytest", "GitHub Actions"],
     langTag: "PYTHON",
     status: "Shipped",
@@ -366,7 +366,7 @@ export const projects: Project[] = [
       decisions: [
         {
           title: "Atomic token consumption",
-          body: "Marking the token used in a single atomic step is what actually enforces one-time semantics under concurrency — a check-then-act would race.",
+          body: "Marking the token used in a single atomic step is what actually enforces one-time semantics under concurrency, because a check-then-act would race.",
         },
         {
           title: "AES-GCM at rest",
@@ -435,7 +435,7 @@ export const projects: Project[] = [
         "Shipped a live Streamlit dashboard to explore predictions",
       ],
       architecture:
-        "A shared 1D CNN extracts features from ECG beat segments. Two interchangeable heads — an MLP and a KAN — sit on top, so differences come from the head alone. Metrics and predictions are surfaced through a Streamlit dashboard.",
+        "A shared 1D CNN extracts features from ECG beat segments. Two interchangeable heads, an MLP and a KAN, sit on top, so differences come from the head alone. Metrics and predictions are surfaced through a Streamlit dashboard.",
       decisions: [
         {
           title: "Shared encoder, swappable head",
@@ -443,7 +443,7 @@ export const projects: Project[] = [
         },
         {
           title: "Parameter count as a first-class metric",
-          body: "Matching accuracy is only interesting alongside cost — so parameters are reported next to accuracy, not hidden.",
+          body: "Matching accuracy is only interesting alongside cost, so parameters are reported next to accuracy, not hidden.",
         },
       ],
       stackWhy: [
@@ -490,7 +490,7 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       problem:
-        "No single query engine wins everywhere — SQLite is great for some shapes, DuckDB for others. This project learns, per query, which engine to use, instead of committing to one.",
+        "No single query engine wins everywhere: SQLite is great for some shapes, DuckDB for others. This project learns, per query, which engine to use, instead of committing to one.",
       constraints: [
         "The router must decide from features available before execution",
         "Training data must be reproducible and benchmark-grounded",
@@ -507,7 +507,7 @@ export const projects: Project[] = [
       decisions: [
         {
           title: "Tree ensembles over deep models",
-          body: "Random Forest and Gradient Boosting fit tabular, engineered features well and stay interpretable — the right tool for this data.",
+          body: "Random Forest and Gradient Boosting fit tabular, engineered features well and stay interpretable, the right tool for this data.",
         },
         {
           title: "Benchmark-generated labels",
@@ -574,7 +574,7 @@ export const projects: Project[] = [
       decisions: [
         {
           title: "Platform evaluation before building",
-          body: "For content management, adopting and configuring a proven platform beats reinventing one — so the work is evaluation and integration, not greenfield code.",
+          body: "For content management, adopting and configuring a proven platform beats reinventing one, so the work is evaluation and integration, not greenfield code.",
         },
         {
           title: "Containerized deployment",

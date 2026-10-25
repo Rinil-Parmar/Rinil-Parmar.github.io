@@ -29,7 +29,7 @@ const nodes: Node[] = [
     sub: "Client / API",
     icon: Send,
     detail:
-      "Every balance-changing request — a posting, a transfer — enters through a single API surface.",
+      "Every balance-changing request, whether a posting or a transfer, enters through a single API surface.",
     why: "One entry point means there is no side door that can bypass validation.",
   },
   {
@@ -57,7 +57,7 @@ const nodes: Node[] = [
     icon: Scale,
     detail:
       "The entry is recorded as balanced debit and credit lines; an unbalanced posting is rejected.",
-    why: "Double-entry is self-checking — the books can't silently drift out of balance.",
+    why: "Double-entry is self-checking, so the books can't silently drift out of balance.",
   },
   {
     id: "ledger",
@@ -75,7 +75,7 @@ const nodes: Node[] = [
     icon: Inbox,
     detail:
       "The event to publish is written to an outbox table inside the same DB transaction as the ledger entry.",
-    why: "The entry and its event commit or fail together — no dual-write inconsistency.",
+    why: "The entry and its event commit or fail together, with no dual-write inconsistency.",
   },
   {
     id: "kafka",

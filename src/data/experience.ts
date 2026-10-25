@@ -39,12 +39,12 @@ export const experience: Experience[] = [
   },
   {
     company: "Onelyk",
-    title: "Software Developer — Remote",
+    title: "Software Developer, Remote",
     location: "United States",
-    period: "May 2024 – Oct 2024",
+    period: "May 2024 – Dec 2024",
     url: "https://www.onelyk.com/",
     summary:
-      "Developed backend and full-stack features for a US hospitality SaaS platform on AWS, serving a large partner and guest-messaging footprint.",
+      "Developed backend and full-stack features for a US hospitality SaaS platform on AWS, serving a growing base of hotel partners and guest messaging.",
     stack: [
       "Node.js",
       "Express.js",
@@ -56,8 +56,8 @@ export const experience: Experience[] = [
       "Redux Toolkit",
     ],
     highlights: [
-      "Architected Node.js/Express backend services on AWS supporting 1,000+ hotel partners.",
-      "Developed real-time guest messaging with WebSockets across 5M+ guest interactions at a 95% response rate.",
+      "Architected Node.js/Express backend services on AWS supporting 100+ hotel partners.",
+      "Developed real-time guest messaging with WebSockets across 500K+ guest interactions at a 95% response rate.",
       "Integrated Twilio SMS notification pipelines for automated guest and partner communication.",
       "Delivered 10+ analytics dashboards with a React/TypeScript frontend and Redux Toolkit state.",
     ],

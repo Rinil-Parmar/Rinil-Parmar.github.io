@@ -8,7 +8,7 @@ import { allProjects } from "@/data/projects";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Engineering projects by Rinil Parmar — backend systems, developer tooling, applied AI, and data.",
+    "Engineering projects by Rinil Parmar: backend systems, developer tooling, applied AI, and data.",
 };
 
 export default function ProjectsPage() {
