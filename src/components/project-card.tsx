@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import type { Project } from "@/data/projects";
 
 const statusStyles: Record<Project["status"], string> = {
@@ -46,6 +46,9 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           {project.status}
         </span>
         <span className="flex items-center gap-3 text-ink-muted">
+          {project.demo && (
+            <ExternalLink className="h-4 w-4 text-accent" aria-label="Live demo available" />
+          )}
           {project.github && <Github className="h-4 w-4" />}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:text-ink" />
         </span>

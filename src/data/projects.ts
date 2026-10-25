@@ -340,6 +340,7 @@ export const projects: Project[] = [
     role: "Creator & sole engineer",
     period: "2026",
     github: "https://github.com/Rinil-Parmar/secure-one-time-file-sharing",
+    demo: "https://secure-one-time-file-sharing.onrender.com/",
     featured: false,
     order: 5,
     highlights: [
