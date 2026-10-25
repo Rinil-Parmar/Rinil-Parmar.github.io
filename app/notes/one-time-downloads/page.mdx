@@ -1,0 +1,54 @@
+import { BackToNotes, NoteMeta } from "@/components/note-meta";
+
+export const metadata = {
+  title: "Making a one-time download actually one-time",
+  description:
+    "Why single-use links are a concurrency problem before a crypto one, and how SecureShare guarantees exactly one download under a race.",
+};
+
+<BackToNotes />
+
+# Making a one-time download actually one-time
+
+<NoteMeta date="October 2026" readingTime="4 min read" />
+
+SecureShare hands out a link that works exactly once. It's tempting to think the hard part is the encryption. It isn't. The hard part is the word "once", and that's a concurrency problem.
+
+## The race nobody tests for
+
+The natural implementation reads like a sentence:
+
+```python
+token = lookup(token_hash)
+if token and not token.used:      # check
+    token.used = True             # act
+    save(token)
+    return stream_file(token)
+return reject()
+```
+
+This is check-then-act, and it has a gap between the check and the act. Fire two requests at the same link at the same moment and both can read `used = False` before either writes `used = True`. Both pass the check. Both serve the file. "Once" just became "twice", and you'll never see it in a single-threaded test.
+
+## Let the database decide the winner
+
+The fix is to make claiming the token a single atomic operation, and let the row lock pick exactly one winner:
+
+```sql
+UPDATE tokens
+   SET used = true
+ WHERE token_hash = :hash
+   AND used = false
+RETURNING file_ref;
+```
+
+Exactly one concurrent request gets a row back; everyone else gets zero rows because the `used = false` condition no longer holds. You serve the file only to the request that actually flipped the bit. The check and the act are now the same statement, so there's no gap to race through.
+
+## The deliberately uncomfortable part
+
+Claiming the token happens *before* the bytes are streamed. If the download then fails halfway, the token is already spent. That's a choice: SecureShare fails closed. For a one-time secret, burning the link on a failed attempt is safer than leaving a second chance open for whoever is racing you. If you wanted resumable downloads you'd design this differently, but then you wouldn't really have a one-time link.
+
+The crypto around it still matters: tokens are 256-bit, stored only as SHA-256 hashes so a database leak doesn't hand out working links, and files are encrypted with AES-GCM at rest. But none of that is what makes the link single-use. The atomic update is.
+
+---
+
+See it in context on the [SecureShare case study](/projects/secureshare), try the [live app](https://secure-one-time-file-sharing.onrender.com/), or read the code on [GitHub](https://github.com/Rinil-Parmar/secure-one-time-file-sharing).

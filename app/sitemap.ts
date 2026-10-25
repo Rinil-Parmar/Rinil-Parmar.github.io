@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
+import { notes } from "@/data/notes";
 
 const base = "https://rinil-parmar.github.io";
 
@@ -7,7 +8,7 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticRoutes = ["", "/projects"].map((route) => ({
+  const staticRoutes = ["", "/projects", "/notes"].map((route) => ({
     url: `${base}${route}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
@@ -21,5 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...projectRoutes];
+  const noteRoutes = notes.map((n) => ({
+    url: `${base}/notes/${n.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+  }));
+
+  return [...staticRoutes, ...projectRoutes, ...noteRoutes];
 }

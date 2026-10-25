@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 import { Command } from "cmdk";
 import {
   ArrowUpRight,
+  BookOpen,
   Briefcase,
   FileText,
   FolderGit2,
@@ -17,6 +18,7 @@ import {
   User,
 } from "lucide-react";
 import { allProjects } from "@/data/projects";
+import { notes } from "@/data/notes";
 import { profile } from "@/data/profile";
 
 export function CommandPalette() {
@@ -84,6 +86,9 @@ export function CommandPalette() {
             <Item icon={<Briefcase />} onSelect={() => go("/#experience")}>
               Experience
             </Item>
+            <Item icon={<BookOpen />} onSelect={() => go("/notes")}>
+              Notes
+            </Item>
             <Item icon={<User />} onSelect={() => go("/#about")}>
               About
             </Item>
@@ -102,6 +107,22 @@ export function CommandPalette() {
               >
                 <span className="flex-1">{p.name}</span>
                 <span className="text-xs text-ink-muted">{p.tagline}</span>
+              </Item>
+            ))}
+          </Command.Group>
+
+          <Command.Group
+            heading="Notes"
+            className="mb-1 px-2 text-[0.6875rem] font-medium uppercase tracking-wider text-ink-muted [&_[cmdk-group-heading]]:px-1 [&_[cmdk-group-heading]]:py-1.5"
+          >
+            {notes.map((n) => (
+              <Item
+                key={n.slug}
+                icon={<BookOpen />}
+                value={`${n.title} ${n.tags.join(" ")}`}
+                onSelect={() => go(`/notes/${n.slug}`)}
+              >
+                <span className="flex-1 truncate">{n.title}</span>
               </Item>
             ))}
           </Command.Group>

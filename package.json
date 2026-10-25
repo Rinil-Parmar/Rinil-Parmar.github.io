@@ -11,6 +11,10 @@
     "og": "node scripts/gen-og.mjs"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^15.5.28",
+    "@types/mdx": "^2.0.14",
     "cmdk": "^1.0.4",
     "lucide-react": "^0.469.0",
     "motion": "^11.18.0",

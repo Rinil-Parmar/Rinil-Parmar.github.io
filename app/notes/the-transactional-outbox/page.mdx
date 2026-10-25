@@ -1,0 +1,55 @@
+import { BackToNotes, NoteMeta } from "@/components/note-meta";
+
+export const metadata = {
+  title: "The transactional outbox",
+  description:
+    "The dual-write problem, and the outbox pattern I used in FinLedger to publish ledger events to Kafka without losing or inventing them.",
+};
+
+<BackToNotes />
+
+# The transactional outbox, and why I write events to a table
+
+<NoteMeta date="October 2026" readingTime="5 min read" />
+
+FinLedger is a double-entry ledger. Every balance change has to do two things that both have to be true: the entry has to land in Postgres, and downstream consumers have to hear about it through Kafka. The trap is thinking those are two independent steps.
+
+## The dual-write problem
+
+The obvious version is to commit the ledger entry, then publish the event:
+
+```java
+ledgerRepo.append(entry);   // commits to Postgres
+kafka.publish(event);       // ...and then this throws
+```
+
+If the publish fails after the commit, the money moved but no consumer ever heard about it. Flip the order and you get the opposite failure: publish first, and if the commit rolls back, consumers act on an entry that never existed. There is no ordering of two separate systems that is safe, because the process can die in the gap between them.
+
+## Write the event to a table instead
+
+The outbox pattern turns two writes into one. The event is written to an `outbox` table inside the **same database transaction** as the ledger entry:
+
+```sql
+BEGIN;
+  INSERT INTO ledger_entries (...) VALUES (...);
+  INSERT INTO outbox (id, topic, payload, published) VALUES (..., false);
+COMMIT;
+```
+
+Now the entry and its event commit or fail together. There is no gap. A separate relay then reads committed `outbox` rows, publishes them to Kafka, and marks them `published`:
+
+```text
+outbox (published = false)  ->  relay  ->  Kafka  ->  mark published = true
+```
+
+If the relay crashes mid-flight, the row is still `false`, so it gets picked up again. That makes delivery **at-least-once**, which is why consumers also need to be idempotent. In FinLedger the write side already enforces idempotency keys, so the same shape of thinking runs end to end.
+
+## What it costs
+
+This isn't free. You've added a relay to run and monitor, and consumers see events with a small delay instead of instantly. You've also chosen eventual consistency for the read-side world outside the database. For a ledger that trade is easy: a few hundred milliseconds of lag is nothing next to the guarantee that the books and the event stream never disagree.
+
+The rule I took away: whenever a commit and a message have to be consistent, don't try to order two systems. Make it one write, and let something else fan it out.
+
+---
+
+See the pattern in context on the [FinLedger case study](/projects/finledger), or read the code on [GitHub](https://github.com/Rinil-Parmar/finledger).
