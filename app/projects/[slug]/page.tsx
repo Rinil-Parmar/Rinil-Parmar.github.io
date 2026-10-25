@@ -6,7 +6,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Reveal } from "@/components/reveal";
 import { CaseStudyNav } from "@/components/case-study-nav";
-import { FinLedgerDiagram } from "@/components/finledger-diagram";
+import { ProjectDiagram } from "@/components/project-diagrams";
 import { getProject, projects } from "@/data/projects";
 
 export function generateStaticParams() {
@@ -151,7 +151,7 @@ export default async function CaseStudyPage({
 
         {cs && (
           <div className="mt-8">
-            <CaseStudyNav hasDiagram={project.slug === "finledger"} />
+            <CaseStudyNav />
 
             <Block id="problem" label="Problem">
               <p className="text-base leading-relaxed text-ink-secondary">
@@ -191,11 +191,7 @@ export default async function CaseStudyPage({
               <p className="text-base leading-relaxed text-ink-secondary">
                 {cs.architecture}
               </p>
-              {project.slug === "finledger" && (
-                <div className="mt-8">
-                  <FinLedgerDiagram />
-                </div>
-              )}
+              <ProjectDiagram slug={project.slug} />
             </Block>
 
             <Block id="decisions" label="Key decisions & trade-offs">
