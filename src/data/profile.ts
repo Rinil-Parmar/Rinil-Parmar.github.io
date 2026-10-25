@@ -12,7 +12,7 @@ export const profile = {
   phone: "519-566-7353",
   links: {
     github: "https://github.com/Rinil-Parmar",
-    linkedin: "https://www.linkedin.com/in/parmar-rinil/",
+    linkedin: "https://www.linkedin.com/in/parmar-rinil-078a311b4/",
     leetcode: "https://leetcode.com/u/parmarrinila2002/",
     resume: "/resume.pdf",
   },
