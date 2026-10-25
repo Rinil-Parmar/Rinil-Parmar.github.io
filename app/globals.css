@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/* next-themes toggles `.dark` on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Engineering Studio — light mode (warm editorial) */
+  --bg: #f7f6f2;
+  --surface: #ffffff;
+  --surface-2: #fbfaf5;
+  --border: #e7e4db;
+  --border-strong: #d6d2c6;
+  --ink: #15171a;
+  --ink-secondary: #53585e;
+  --ink-muted: #8b9097;
+  --accent: #0d8c7d;
+  --accent-soft: #e2f3ef;
+  --accent-contrast: #ffffff;
+}
+
+.dark {
+  /* Engineering Studio — dark mode (graphite) */
+  --bg: #0e0f11;
+  --surface: #15171a;
+  --surface-2: #1a1d20;
+  --border: #22262b;
+  --border-strong: #2e333a;
+  --ink: #f4f4f3;
+  --ink-secondary: #9aa0a6;
+  --ink-muted: #6b7076;
+  --accent: #4adecd;
+  --accent-soft: #10302d;
+  --accent-contrast: #0e0f11;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-muted: var(--ink-muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", monospace;
+
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Thin, theme-aware scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 999px;
+    border: 3px solid var(--bg);
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Subtle engineering grid used behind the hero. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
