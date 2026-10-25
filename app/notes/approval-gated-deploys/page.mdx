@@ -1,0 +1,48 @@
+import { BackToNotes, NoteMeta } from "@/components/note-meta";
+
+export const metadata = {
+  title: "Rootless Docker, and a deploy you have to approve",
+  description:
+    "Deploying to a shared university VM, where the guardrails are the feature: rootless Docker, Nginx, a self-hosted runner, and an approval-gated pipeline for Heritage ECM.",
+};
+
+<BackToNotes />
+
+# Rootless Docker, and a deploy you have to approve
+
+<NoteMeta date="October 2026" readingTime="5 min read" />
+
+Heritage ECM runs on a shared University of Windsor VM and manages research documents that can't be re-created. That changes the question. The interesting part isn't "how do I deploy?", it's "how do I deploy to a box I don't fully own, holding data I can't afford to lose, without a careless push taking it down?" The answer is a stack of deliberate constraints.
+
+## Don't run as root
+
+The app is [Mayan EDMS](/projects/heritage-ecm), a document platform, run with Docker Compose. On a shared machine, running the Docker daemon as root means a container escape is a host compromise. So Docker runs **rootless** — the whole stack lives in an unprivileged user namespace. If something breaks out of a container, it's still just my user, not the box.
+
+## Keep the app off the public interface
+
+Mayan itself is never exposed to the internet. It binds to `127.0.0.1:8080` — localhost only — and **Nginx** sits in front as a reverse proxy, terminating TLS and forwarding to the loopback address:
+
+```text
+internet ──HTTPS──> Nginx (VM) ──> 127.0.0.1:8080 (Mayan, rootless Docker)
+```
+
+The public surface is one hardened proxy, not a document app with its own opinions about ports and headers. The Compose project also runs PostgreSQL, RabbitMQ, and Redis, all on the internal network, none of them reachable from outside.
+
+## Merging is not deploying
+
+This is the part I care about most. In a lot of setups, merge to `main` and a workflow immediately ships to production. For irreplaceable records, that's too much trust in a green checkmark. So the pipeline splits in two:
+
+- **On every pull request**, CI validates the repository and the Mayan Compose file on a GitHub-hosted runner. It has to pass to merge. It deploys nothing.
+- **Deploying is a separate, manual action.** A `Deploy Mayan to university VM` workflow runs a *preflight* that checks rootless Docker and validates the Compose file and `.env` without touching anything running. Only then does the deploy job proceed — and it pauses at a protected `mayan-production` environment gate that **requires owner approval**. Admin bypass is disabled, and deploys are restricted to `main`.
+
+A self-hosted runner on the VM (labelled `ecm-deploy`) does the actual work: pull images, apply the Compose project, and health-check that Mayan answers with a 200 or 302. The runner lives on the VM because that's where the containers are.
+
+## The guardrails are the feature
+
+None of this makes the app do more. What it buys is that no single mistake is catastrophic: a container escape is contained, the app isn't on the public internet, and nothing reaches production without a human deliberately approving it. Secrets stay in the VM's `.env`, never in Git or logs.
+
+There's one honest gap I'm closing next: verified **off-VM backups**. A deploy pipeline is not a backup, and I won't call the service trustworthy for irreplaceable records until restores are tested. That's the point of writing the constraints down — it also makes the missing one obvious.
+
+---
+
+See the full picture on the [Heritage ECM case study](/projects/heritage-ecm), including the interactive deploy pipeline.

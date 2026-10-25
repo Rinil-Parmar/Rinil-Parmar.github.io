@@ -11,6 +11,15 @@ export type Note = {
 // app/notes/<slug>/page.mdx.
 export const notes: Note[] = [
   {
+    slug: "approval-gated-deploys",
+    title: "Rootless Docker, and a deploy you have to approve",
+    date: "October 2026",
+    summary:
+      "When you deploy to a shared university VM, the guardrails are the feature. How Heritage ECM ships Mayan safely with rootless Docker, Nginx, and an approval-gated pipeline.",
+    tags: ["DevOps", "Docker", "CI/CD"],
+    readingTime: "5 min read",
+  },
+  {
     slug: "the-transactional-outbox",
     title: "The transactional outbox, and why I write events to a table",
     date: "October 2026",
