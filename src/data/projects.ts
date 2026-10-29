@@ -66,7 +66,7 @@ export const projects: Project[] = [
     ],
     images: [
       {
-        src: "/projects/aros.png",
+        src: "/projects/aros.webp",
         alt: "Aros CLI terminal UI: the multi-agent orchestrator showing enabled agents (claude, copilot, opencode), the active session, and commands.",
         width: 1888,
         height: 1039,
@@ -222,7 +222,7 @@ export const projects: Project[] = [
     ],
     images: [
       {
-        src: "/projects/secondmem.png",
+        src: "/projects/secondmem.webp",
         alt: "Secondmem CLI help output listing commands: ask, ingest, graph, rebalance, stats, tree, validate.",
         width: 1911,
         height: 1003,
@@ -298,9 +298,35 @@ export const projects: Project[] = [
     featured: true,
     order: 4,
     highlights: [
-      "Configurable scraper with resumable state and proximity keyword matching",
-      "Searchable dashboard with CSV export and health-check endpoints",
+      "Live dashboard with scraper controls, search, filtering, and CSV export",
+      "Configurable, resumable scraper with proximity-based keyword matching",
       "Docker Compose, Pytest regression suite, and GitHub Actions CI",
+    ],
+    images: [
+      {
+        src: "/projects/remembering-lancers-dashboard.webp",
+        alt: "Remembering Lancers dashboard: obituary stats, scraper controls with start/stop and live counts, and filters.",
+        width: 828,
+        height: 417,
+        caption:
+          "The operator dashboard: live scraper controls and counts (saved, skipped, duplicates), filters, and CSV export. A banner notes data is sourced from remembering.ca for educational use.",
+      },
+      {
+        src: "/projects/remembering-lancers-list.webp",
+        alt: "Remembering Lancers obituary list grouped by year, with name, city, province, and dates.",
+        width: 858,
+        height: 428,
+        caption:
+          "Alumni records grouped by year, searchable and filterable, each linking to a detail view.",
+      },
+      {
+        src: "/projects/remembering-lancers-detail.webp",
+        alt: "Remembering Lancers obituary detail: name, location, dates, funeral home, and family information.",
+        width: 940,
+        height: 471,
+        caption:
+          "A record's detail view: structured fields plus the parsed obituary text.",
+      },
     ],
     caseStudy: {
       problem:
@@ -378,7 +404,7 @@ export const projects: Project[] = [
     ],
     images: [
       {
-        src: "/projects/secureshare-upload.png",
+        src: "/projects/secureshare-upload.webp",
         alt: "SecureShare upload screen: an AES-GCM encrypted confidential file with a configurable expiry and optional password.",
         width: 1881,
         height: 963,
@@ -386,7 +412,7 @@ export const projects: Project[] = [
           "Creating a transfer: files are AES-GCM encrypted before storage, with a 1-minute-to-7-day expiry and optional password.",
       },
       {
-        src: "/projects/secureshare-vault.png",
+        src: "/projects/secureshare-vault.webp",
         alt: "SecureShare vault: a shared file with its latest link, expiry countdown, and a menu to create a new link or revoke the current one.",
         width: 1902,
         height: 949,
@@ -394,7 +420,7 @@ export const projects: Project[] = [
           "The owner's vault: manage a file's active link, create a fresh one, or revoke access.",
       },
       {
-        src: "/projects/secureshare-audit.png",
+        src: "/projects/secureshare-audit.webp",
         alt: "SecureShare audit trail showing a completed download followed by a blocked attempt labelled 'link already used'.",
         width: 1885,
         height: 946,
