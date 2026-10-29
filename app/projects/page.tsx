@@ -29,7 +29,7 @@ export default function ProjectsPage() {
 
         <div className="mt-14 grid gap-4 sm:grid-cols-2">
           {allProjects.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 2) * 0.05}>
+            <Reveal key={p.slug} delay={(i % 2) * 0.05} className="h-full">
               <ProjectCard project={p} index={i} />
             </Reveal>
           ))}

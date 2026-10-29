@@ -16,7 +16,7 @@ export function FeaturedWork() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         {featuredProjects.map((p, i) => (
-          <Reveal key={p.slug} delay={i * 0.05}>
+          <Reveal key={p.slug} delay={i * 0.05} className="h-full">
             <ProjectCard project={p} index={i} />
           </Reveal>
         ))}
